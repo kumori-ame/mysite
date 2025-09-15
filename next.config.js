@@ -9,6 +9,9 @@ const nextConfig = {
   
   // GitHub Pagesへのデプロイに必要な設定
   output: 'export',
+  images: {
+    unoptimized: true,
+  },
 };
 
 module.exports = nextConfig;

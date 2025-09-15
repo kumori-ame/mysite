@@ -4,9 +4,10 @@
 import { useState, useEffect } from "react";
 
 const texts = [
-  "3D Modeler",
-  "Developer",
-  "Drone Pilot"
+  "Blender",
+  "Python",
+  "Fusion",
+  "GIMP"
 ];
 
 export default function TypingEffect() {
