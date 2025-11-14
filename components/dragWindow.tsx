@@ -26,10 +26,15 @@ const styles = {
     fontSize: '16px',
     fontWeight: 'bold',
   } as React.CSSProperties,
+  closebutton:{
+  backgroundColor: '#ff0000',
+  } as React.CSSProperties,
   content: {
     
   } as React.CSSProperties,
 };
+
+let highestZ = styles.window.zIndex as number || 1000;
 
 // 正しいPropsのインターフェースを定義
 interface DragWindowProps {
@@ -51,8 +56,8 @@ export default function DragWindow({ children, title, toggleButton }: DragWindow
       y: Math.max(0, screenHeight / 5), 
     };
   });
-
-
+  //z-index管理
+  const [zIndex, setZIndex] = useState<number>(highestZ);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -88,6 +93,29 @@ export default function DragWindow({ children, title, toggleButton }: DragWindow
     };
   }, [isDragging]);
 
+  // 親要素をクリックしたときにもこのウィンドウを前面にする
+  useEffect(() => {
+    const node = windowRef.current;
+    if (!node) return;
+    const parent = node.parentElement;
+    if (!parent) return;
+
+    const bringToFront = () => {
+      highestZ += 1;
+      setZIndex(highestZ);
+    };
+
+    parent.addEventListener('pointerdown', bringToFront);
+    parent.addEventListener('touchstart', bringToFront);
+
+    return () => {
+      parent.removeEventListener('pointerdown', bringToFront);
+      parent.removeEventListener('touchstart', bringToFront);
+    };
+  }, []);
+
+
+
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (windowRef.current) {
       const rect = windowRef.current.getBoundingClientRect();
@@ -96,6 +124,10 @@ export default function DragWindow({ children, title, toggleButton }: DragWindow
         y: e.clientY - rect.top,
       };
     }
+
+    highestZ += 1;
+    setZIndex(highestZ);
+
     setIsDragging(true);
   };
 
@@ -107,12 +139,13 @@ export default function DragWindow({ children, title, toggleButton }: DragWindow
         position: "absolute",
         top: `${position.y}px`,
         left: `${position.x}px`,
+        zIndex: zIndex,
   }}
     >
       <div style={{}}>
         <div className='window-header' onMouseDown={handleMouseDown}>
           {title}
-           <button title="×" className='ml-auto text-5xl pr-2 font-normal' onClick={toggleButton}>×</button>
+           <button title="×" className='ml-auto text-5xl pl-2 pr-2 rounded-2xl cursor-pointer font-normal' onClick={toggleButton}>×</button>
         </div>
         <div style={{overflowY: 'scroll', maxHeight: '54vh'}}>
           {children}

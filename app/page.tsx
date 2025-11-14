@@ -7,7 +7,8 @@ import DragWindow from "@/components/dragWindow";
 import React, { useState, useEffect, useRef } from 'react';
 
 export default function Home() {
-  const [visible, setVisible] = React.useState(false);
+   const [visibleMap, setVisibleMap] = React.useState<Record<string, boolean>>({});
+   const toggle = (id: string) => setVisibleMap(prev => ({ ...prev, [id]: !prev[id] }));
   return (
     <main className="bg-zinc-50">
       <header>
@@ -19,9 +20,8 @@ export default function Home() {
         <span className="font-sans text-xl text-gray-600 pt-5 pb-5 typing"><TypingEffect /></span>
 
         <div className="font-mono text-xl flex flex-row gap-10 text-gray-600 pt-10">
-          <div className="profile-buttons">about</div>
-            <MyButton title="about2" isVisible={visible}onToggle={setVisible} >
-              <DragWindow title="about2" toggleButton={() => setVisible(!visible)} >
+          <MyButton title="about" isVisible={!!visibleMap['about']}onToggle={() => toggle('about')} >
+              <DragWindow title="about" toggleButton={() => toggle('about')} >
                   <div className="window-content">
                   <div className="pt-10 pl-20">
                     <div className="flex flex-row items-center m-5 gap-5">
@@ -63,9 +63,13 @@ export default function Home() {
                   </div>
                   </div>
               </DragWindow>
-            </MyButton>
+          </MyButton>
+          <MyButton title="work" isVisible={!!visibleMap['work']}onToggle={() => toggle('work')}>
+            <DragWindow title="work" toggleButton={() => toggle('work')} >
+              <div>test</div>
+            </DragWindow>
+          </MyButton>
 
-          <div className="profile-buttons">work</div>
           <div className="profile-buttons">fun</div>
         </div>
       </div>
