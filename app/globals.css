@@ -44,11 +44,12 @@ body {
   padding: 10px 20px;
   border-radius: 15px;
   transition-duration: 200ms;
+  border: 1px solid var(--color-blue-400);
   cursor: pointer
 }
 .profile-buttons:hover{
   transition-duration: 200ms;
-  background-color: #f5f5f5;
-  color: var(--color-blue-400);
+  background-color: var(--color-blue-400);
+  color: #f5f5f5
 }
 

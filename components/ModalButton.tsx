@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
 
-type MybuttonProps = {
+type ModalbuttonProps = {
   title: string;
   children: React.ReactNode;
   isVisible?: boolean; // 親から渡せる表示状態
   onToggle?: (next: boolean) => void; // 親に切替通知
 };
 
-export default function Mybutton({ title, children, isVisible: propVisible, onToggle }: MybuttonProps) {
+export default function ModalButton({ title, children, isVisible: propVisible, onToggle }: ModalbuttonProps) {
   const [internalVisible, setInternalVisible] = React.useState(false);
   const isControlled = propVisible !== undefined;
   const isVisible = isControlled ? propVisible : internalVisible;

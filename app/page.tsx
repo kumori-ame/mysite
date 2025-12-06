@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import TypingEffect from "@/components/TypingEffect";
-import MyButton from "@/components/ModalButton";
+import ModalButton from "@/components/ModalButton";
 import DragWindow from "@/components/dragWindow";
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -10,9 +10,8 @@ export default function Home() {
    const [visibleMap, setVisibleMap] = React.useState<Record<string, boolean>>({});
    const toggle = (id: string) => setVisibleMap(prev => ({ ...prev, [id]: !prev[id] }));
   return (
-    <main className="bg-zinc-50">
-      <header>
-        <div>place</div>
+    <main>
+      <header >
       </header>
       <div className="flex flex-col main-box m-5">
         <div  className="font-sans text-6xl text-gray-600 font-light">hello <span className="font-sans text-blue-400 font-medium">i'm kumori</span></div>
@@ -20,7 +19,7 @@ export default function Home() {
         <span className="font-sans text-xl text-gray-600 pt-5 pb-5 typing"><TypingEffect /></span>
 
         <div className="font-mono text-xl flex flex-row gap-10 text-gray-600 pt-10">
-          <MyButton title="about" isVisible={!!visibleMap['about']}onToggle={() => toggle('about')} >
+          <ModalButton title="about me" isVisible={!!visibleMap['about']}onToggle={() => toggle('about')} >
               <DragWindow title="about" toggleButton={() => toggle('about')} >
                   <div className="window-content">
                   <div className="pt-10 pl-20">
@@ -63,14 +62,15 @@ export default function Home() {
                   </div>
                   </div>
               </DragWindow>
-          </MyButton>
-          <MyButton title="work" isVisible={!!visibleMap['work']}onToggle={() => toggle('work')}>
+          </ModalButton>
+          <ModalButton title="work" isVisible={!!visibleMap['work']}onToggle={() => toggle('work')}>
             <DragWindow title="work" toggleButton={() => toggle('work')} >
               <div>test</div>
             </DragWindow>
-          </MyButton>
-
-          <div className="profile-buttons">fun</div>
+          </ModalButton>
+          {
+          //<div className="profile-buttons">fun</div>
+          }
         </div>
       </div>
     </main>

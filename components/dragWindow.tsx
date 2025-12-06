@@ -45,6 +45,7 @@ interface DragWindowProps {
 // 正しいコンポーネントの定義方法
 export default function DragWindow({ children, title, toggleButton }: DragWindowProps & { toggleButton: () => void }) {
   const [isDragging, setIsDragging] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
   const windowRef = useRef<HTMLDivElement>(null);
 
@@ -130,11 +131,22 @@ export default function DragWindow({ children, title, toggleButton }: DragWindow
 
     setIsDragging(true);
   };
+  const handleClose = () => {
+    // 閉じるアニメーションを開始
+    setIsClosing(true);
+    
+    // アニメーションの完了を待って、親のトグル関数を呼ぶ
+    // CSSアニメーションの時間に合わせて、setTimeoutの時間を設定
+    const animationDuration = 150; // ms
+    setTimeout(() => {
+      toggleButton(); // 親コンポーネントの表示状態をfalseにする
+    }, animationDuration);
+  };
 
   return (
     <div
       ref={windowRef}
-      className='window-box animate-pop-in'
+      className={`window-box ${isClosing ? 'animate-pop-out' : 'animate-pop-in'}`}
       style={{
         position: "absolute",
         top: `${position.y}px`,
@@ -145,7 +157,7 @@ export default function DragWindow({ children, title, toggleButton }: DragWindow
       <div style={{}}>
         <div className='window-header' onMouseDown={handleMouseDown}>
           {title}
-           <button title="×" className='ml-auto text-5xl pl-2 pr-2 rounded-2xl cursor-pointer font-normal' onClick={toggleButton}>×</button>
+           <button title="×" className='ml-auto text-5xl pl-2 pr-2 rounded-2xl cursor-pointer font-normal' onClick={handleClose}>×</button>
         </div>
         <div style={{overflowY: 'scroll', maxHeight: '54vh'}}>
           {children}
