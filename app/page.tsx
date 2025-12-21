@@ -47,20 +47,20 @@ export default function Home() {
                         <li>ドローン操縦</li>
                         <li>フロントエンド開発(このサイト!)</li>
                       </ul>
+                      <p className="pt-5 pb-5">スキルセット</p>
+                      <ul className="list-disc list-inside">
+                        <li>Blender 5年 (自力でのポリゴンモデリングが可能)</li>
+                        <li>Python 3年 (技術書を見ながらのコーディングが可能)</li>
+                        <li>HTML/CSS/JS 2年 (基礎的なWebサイトが作成可能)</li>
+                        <li>TypeScript 1年 (簡単なwebアプリを作成可能)</li>
+                        <li>PHP 半年 (授業で触れた程度)</li>
+                      </ul>
                       <p className="pt-5 pb-5">興味のあること</p>
                       <ul className="list-disc list-inside">
                         <li>ゲーム開発</li>
                         <li>シェーダー</li>
                         <li>絵を描く</li>
                         <li>サバゲー</li>
-                      </ul>
-                      <p className="pt-5 pb-5">スキルセット</p>
-                      <ul className="list-disc list-inside">
-                        <li>Blender 5年 (自力でのポリゴンモデリングが可能)</li>
-                        <li>Python 2年 (技術書を見ながらのコーディングが可能)</li>
-                        <li>HTML/CSS/JS 2年 (基礎的なWebサイトが作成可能)</li>
-                        <li>TypeScript 1年 (簡単なwebアプリを作成可能)</li>
-                        <li>PHP 半年 (授業で触れた程度)</li>
                       </ul>
                     </div>
                   </div>
@@ -69,7 +69,36 @@ export default function Home() {
           </ModalButton>
           <ModalButton title="work" isVisible={!!visibleMap['work']}onToggle={() => toggle('work')}>
             <DragWindow title="work" toggleButton={() => toggle('work')} >
-              <div>test</div>
+              <div className="flex flex-col">
+                <div className="flex flex-row pt-10 pl-5 gap-10">
+                <Image
+                            src="./images/512-kisser.png"
+                            alt="Picture of the author"
+                            width={170}
+                            height={170}
+                            style={{ borderRadius: "50%" }}
+                            className="pl-10"
+                        />
+                    <div>
+                      <p className="font-bold text-2xl text-blue-400">流体シミュレーション</p>
+                      <p className="pt-2">Blenderを使ったコンクリート打設工法のシミュレーションをしていました</p>
+                    </div>
+                </div>
+                <div className="flex flex-row pt-10 pl-5 gap-10">
+                <Image
+                            src="./images/512-kisser.png"
+                            alt="Picture of the author"
+                            width={170}
+                            height={170}
+                            style={{ borderRadius: "50%" }}
+                            className="pl-10"
+                        />
+                    <div>
+                      <p className="font-bold text-2xl text-blue-400">流体シミュレーション</p>
+                      <p className="pt-2">Blenderを使ったコンクリート打設工法のシミュレーションをしていました</p>
+                    </div>
+                </div>
+              </div>
             </DragWindow>
           </ModalButton>
           {
